@@ -7,6 +7,8 @@ import { Produtos } from './components/Produtos';
 import { Diferenciais } from './components/Diferenciais';
 import { Depoimentos } from './components/Depoimentos';
 import { Cadastro } from './components/Cadastro';
+import { Contato } from './components/Contato';
+import { Footer } from './components/Footer';
 
 export default function App() {
   return (
@@ -21,7 +23,9 @@ export default function App() {
         <Diferenciais />
         <Depoimentos />
         <Cadastro />
+        <Contato />
       </main>
+      <Footer />
     </div>
   );
 }
