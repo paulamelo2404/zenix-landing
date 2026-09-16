@@ -1,11 +1,12 @@
+import { useRef, useState } from 'react';
 import {
   ShieldCheckIcon,
   UserGroupIcon,
   SparklesIcon,
   ChatBubbleLeftRightIcon,
+  ArrowRightIcon,
 } from '@heroicons/react/24/outline';
 import { links } from '../utils/whatsapp';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 const diferenciais = [
   {
@@ -35,42 +36,71 @@ const diferenciais = [
 ];
 
 export function Diferenciais() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [pos, setPos] = useState({ x: 50, y: 50 });
+
+  function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setPos({ x, y });
+  }
+
   return (
-    <section className="relative py-24 px-6 bg-zinc-900/30">
-      <div className="max-w-7xl mx-auto">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      className="relative py-28 px-6 border-y border-zenix-rose/20 overflow-hidden bg-zenix-rose/30"
+    >
+      {/* Gradiente rosa escuro fixo no topo */}
+      <div className="absolute inset-0 bg-linear-to-b from-zenix-rose-dark/90 via-zenix-rose/40 to-zenix-rose/20 pointer-events-none" />
+
+      {/* Spotlight rosa que segue o mouse */}
+      <div
+        className="absolute inset-0 transition-[background] duration-300 ease-out pointer-events-none opacity-50"
+        style={{
+          background: `radial-gradient(700px circle at ${pos.x}% ${pos.y}%, rgba(183, 110, 130, 0.6), transparent 70%)`,
+        }}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Cabeçalho */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="text-amber-400 text-sm font-semibold tracking-widest uppercase">
+          <span className="inline-block text-white text-xs font-semibold tracking-[0.3em] uppercase mb-4 px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full border border-white/30">
             Nossos Diferenciais
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white mt-2 mb-6 leading-tight drop-shadow-lg">
             Por que a ZENIX é diferente?
           </h2>
-          <p className="text-zinc-400 text-lg">
+          <p className="text-white text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md">
             Mais do que produtos, entregamos uma parceria real com quem vive da
             beleza.
           </p>
         </div>
 
         {/* Grid de diferenciais */}
-        <div className="grid md:grid-cols-2 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 gap-5 mb-16">
           {diferenciais.map((item) => {
             const Icone = item.icone;
             return (
               <div
                 key={item.titulo}
-                className="flex gap-5 bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:border-amber-500/40 transition"
+                className="group relative flex gap-5 bg-zinc-950/90 backdrop-blur-xl border border-zinc-800 rounded-3xl p-7 shadow-2xl shadow-black/40 hover:bg-zinc-900 hover:border-zenix-rose/50 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
               >
-                <div className="shrink-0">
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
-                    <Icone className="w-6 h-6 text-amber-400" />
+                {/* Glow rosa no canto no hover */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-zenix-rose/0 group-hover:bg-zenix-rose/15 blur-3xl rounded-full transition-all duration-500 pointer-events-none" />
+
+                <div className="relative shrink-0">
+                  <div className="w-14 h-14 rounded-2xl bg-zenix-rose/15 border border-zenix-rose/30 flex items-center justify-center text-zenix-rose transition-all duration-300 group-hover:bg-zenix-rose group-hover:text-white group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-zenix-rose/50">
+                    <Icone className="w-6 h-6" />
                   </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                <div className="relative">
+                  <h3 className="font-display text-lg text-white mb-2">
                     {item.titulo}
                   </h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">
+                  <p className="text-sm text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">
                     {item.descricao}
                   </p>
                 </div>
@@ -80,11 +110,12 @@ export function Diferenciais() {
         </div>
 
         {/* Faixa de impacto */}
-        <div className="relative rounded-3xl overflow-hidden border border-amber-500/30 bg-linear-to-br from-amber-500/10 via-zinc-900 to-zinc-900 p-10 md:p-14 text-center">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-100 h-100 bg-amber-500/10 rounded-full blur-3xl -translate-y-1/2" />
+        <div className="relative rounded-4xl overflow-hidden bg-zinc-950/90 backdrop-blur-xl border border-zinc-800 shadow-2xl shadow-black/40 p-10 md:p-14 text-center">
+          {/* Glow rosa no topo */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-zenix-rose/20 blur-3xl rounded-full pointer-events-none" />
 
           <div className="relative">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            <h3 className="font-display text-2xl md:text-3xl text-white mb-4">
               Pronto pra fazer parte da ZENIX?
             </h3>
             <p className="text-zinc-400 max-w-2xl mx-auto mb-8">
@@ -95,10 +126,10 @@ export function Diferenciais() {
               href={links.parceiro}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-semibold px-8 py-3.5 rounded-full transition group"
+              className="inline-flex items-center gap-2 bg-zenix-rose hover:bg-zenix-rose-dark text-white font-medium tracking-widest uppercase text-sm px-8 py-4 rounded-full transition shadow-lg hover:shadow-xl hover:shadow-zenix-rose/50"
             >
               Quero ser parceiro(a)
-              <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRightIcon className="w-4 h-4" />
             </a>
           </div>
         </div>
