@@ -4,6 +4,8 @@ import { Destaques } from './components/Destaques';
 import { Sobre } from './components/Sobre';
 import { Categorias } from './components/Categorias';
 import { Produtos } from './components/Produtos';
+import { Diferenciais } from './components/Diferenciais';
+import { Depoimentos } from './components/Depoimentos';
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
         <Sobre />
         <Categorias />
         <Produtos />
+        <Diferenciais />
+        <Depoimentos />
       </main>
     </div>
   );
