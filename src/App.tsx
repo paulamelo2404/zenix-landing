@@ -1,5 +1,7 @@
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { Destaques } from './components/Destaques';
+import { Sobre } from './components/Sobre';
 
 export default function App() {
   return (
@@ -7,6 +9,8 @@ export default function App() {
       <Header />
       <main>
         <Hero />
+        <Destaques />
+        <Sobre />
       </main>
     </div>
   );
