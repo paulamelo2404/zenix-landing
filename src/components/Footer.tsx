@@ -1,4 +1,4 @@
-import { ArrowRightIcon, HeartIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import { links } from '../utils/whatsapp';
 
