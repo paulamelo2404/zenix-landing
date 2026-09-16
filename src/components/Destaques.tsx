@@ -76,7 +76,7 @@ export function Destaques() {
                 </h3>
 
                 {/* Descrição */}
-                <p className="text-sm text-white/90 leading-relaxed max-w-[220px]">
+                <p className="text-sm text-white/90 leading-relaxed max-w-55">
                   {item.descricao}
                 </p>
               </div>
