@@ -24,3 +24,32 @@ export const links = {
   produto: (nomeProduto: string) =>
     linkWhatsApp(`Olá! Tenho interesse no produto: ${nomeProduto}`),
 };
+
+/**
+ * Monta uma mensagem formatada com os dados do formulário
+ * e retorna o link do WhatsApp pronto pra abrir.
+ */
+export function montarMensagemCadastro(
+  titulo: string,
+  dados: Record<string, string>,
+  produtos?: string[]
+): string {
+  const linhas: string[] = [`*${titulo}*`, ''];
+
+  Object.entries(dados).forEach(([chave, valor]) => {
+    if (valor.trim()) {
+      linhas.push(`*${chave}:* ${valor}`);
+    }
+  });
+
+  if (produtos && produtos.length > 0) {
+    linhas.push('');
+    linhas.push('*Produtos desejados:*');
+    produtos.forEach((p) => linhas.push(`• ${p}`));
+  }
+
+  linhas.push('');
+  linhas.push('_Enviado pelo site zenixprofessional.com.br_');
+
+  return linkWhatsApp(linhas.join('\n'));
+}

@@ -6,6 +6,7 @@ import { Categorias } from './components/Categorias';
 import { Produtos } from './components/Produtos';
 import { Diferenciais } from './components/Diferenciais';
 import { Depoimentos } from './components/Depoimentos';
+import { Cadastro } from './components/Cadastro';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Produtos />
         <Diferenciais />
         <Depoimentos />
+        <Cadastro />
       </main>
     </div>
   );
