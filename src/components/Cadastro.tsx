@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   UserIcon,
   LockClosedIcon,
@@ -8,24 +8,23 @@ import { montarMensagemCadastro } from '../utils/whatsapp';
 
 type Aba = 'profissional' | 'consumidor';
 
-// Produtos disponíveis pra seleção (Uso Próprio)
-// Trocaremos pelos nomes reais depois
 const PRODUTOS_DISPONIVEIS = [
-  'Cápsula',
-  'Kit Banana e Mel',
-  'Kit Liso Absoluto',
-  'Amber Glow',
-  'RoyalPlástia',
-  'Home Care',
-  'CPR',
-  'Linha Profissional',
-  'Outro',
+  'Biotox Royal Blond',
+  'ZenitPro Btox Branco',
+  'Cauterização CPR',
+  'Selagem BioZenit Blond',
+  'RoyalPlástia Blond',
+  'Longmax',
+  'Liso Absoluto',
+  'Banana e Mel',
+  'Amber Glow Oil',
 ];
 
 export function Cadastro() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [pos, setPos] = useState({ x: 50, y: 50 });
   const [aba, setAba] = useState<Aba>('profissional');
 
-  // Campos — Profissional / Revendedora
   const [prof, setProf] = useState({
     nome: '',
     salao: '',
@@ -36,7 +35,6 @@ export function Cadastro() {
     observacoes: '',
   });
 
-  // Campos — Uso Próprio
   const [cons, setCons] = useState({
     cidade: '',
     bairro: '',
@@ -44,8 +42,15 @@ export function Cadastro() {
     telefone: '',
   });
 
-  // Produtos selecionados (só pro modo Uso Próprio)
   const [produtosSelecionados, setProdutosSelecionados] = useState<string[]>([]);
+
+  function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setPos({ x, y });
+  }
 
   function toggleProduto(nome: string) {
     setProdutosSelecionados((atual) =>
@@ -87,37 +92,53 @@ export function Cadastro() {
   }
 
   const inputClass =
-    'w-full bg-zinc-950/60 border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-amber-500/60 transition';
+    'w-full bg-zinc-900/80 border border-zinc-700 rounded-2xl px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-zenix-rose focus:bg-zinc-900 transition';
 
   const labelClass =
-    'block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2';
+    'block text-[0.7rem] font-semibold text-zinc-400 uppercase tracking-widest mb-2';
 
   return (
-    <section id="cadastro" className="relative py-24 px-6 bg-zinc-900/30">
-      <div className="max-w-4xl mx-auto">
+    <section
+      id="cadastro"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      className="relative py-28 px-6 border-y border-zenix-rose/20 overflow-hidden bg-zenix-rose/30"
+    >
+      {/* Gradiente rosa escuro fixo no topo */}
+      <div className="absolute inset-0 bg-linear-to-b from-zenix-rose-dark/90 via-zenix-rose/40 to-zenix-rose/20 pointer-events-none" />
+
+      {/* Spotlight rosa que segue o mouse */}
+      <div
+        className="absolute inset-0 transition-[background] duration-300 ease-out pointer-events-none opacity-50"
+        style={{
+          background: `radial-gradient(700px circle at ${pos.x}% ${pos.y}%, rgba(183, 110, 130, 0.6), transparent 70%)`,
+        }}
+      />
+
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Cabeçalho */}
-        <div className="text-center mb-12">
-          <span className="text-amber-400 text-sm font-semibold tracking-widest uppercase">
+        <div className="text-center mb-14">
+          <span className="inline-block text-white text-xs font-semibold tracking-[0.3em] uppercase mb-4 px-4 py-1.5 bg-white/15 backdrop-blur-sm rounded-full border border-white/30">
             Cadastro
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-4">
+          <h2 className="font-display text-3xl md:text-5xl text-white mt-2 mb-4 leading-tight drop-shadow-lg">
             Vamos conversar?
           </h2>
-          <p className="text-zinc-400 text-lg">
+          <p className="text-white text-base md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md">
             Escolha o tipo de atendimento e envie seus dados direto pelo WhatsApp.
           </p>
         </div>
 
         {/* Card do formulário */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden">
+        <div className="bg-zinc-950/90 backdrop-blur-xl border border-zinc-800 rounded-4xl overflow-hidden shadow-2xl shadow-black/40">
           {/* Abas */}
           <div className="grid grid-cols-2">
             <button
               type="button"
               onClick={() => setAba('profissional')}
-              className={`flex items-center justify-center gap-2 py-5 font-semibold text-sm uppercase tracking-wider transition ${
+              className={`flex items-center justify-center gap-2 py-5 font-semibold text-xs tracking-widest uppercase transition ${
                 aba === 'profissional'
-                  ? 'bg-zinc-900 text-amber-400 border-b-2 border-amber-500'
+                  ? 'bg-zinc-900 text-zenix-rose border-b-2 border-zenix-rose'
                   : 'bg-zinc-950/60 text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent'
               }`}
             >
@@ -127,9 +148,9 @@ export function Cadastro() {
             <button
               type="button"
               onClick={() => setAba('consumidor')}
-              className={`flex items-center justify-center gap-2 py-5 font-semibold text-sm uppercase tracking-wider transition ${
+              className={`flex items-center justify-center gap-2 py-5 font-semibold text-xs tracking-widest uppercase transition ${
                 aba === 'consumidor'
-                  ? 'bg-zinc-900 text-amber-400 border-b-2 border-amber-500'
+                  ? 'bg-zinc-900 text-zenix-rose border-b-2 border-zenix-rose'
                   : 'bg-zinc-950/60 text-zinc-500 hover:text-zinc-300 border-b-2 border-transparent'
               }`}
             >
@@ -142,7 +163,7 @@ export function Cadastro() {
           <form onSubmit={handleSubmit} className="p-8 md:p-10">
             {aba === 'profissional' ? (
               <>
-                <h3 className="text-2xl font-semibold text-white mb-2">
+                <h3 className="font-display text-2xl text-white mb-2">
                   Solicitar Visita
                 </h3>
                 <p className="text-zinc-400 text-sm mb-8">
@@ -243,7 +264,7 @@ export function Cadastro() {
               </>
             ) : (
               <>
-                <h3 className="text-2xl font-semibold text-white mb-2">
+                <h3 className="font-display text-2xl text-white mb-2">
                   Monte seu Pedido — Uso Próprio
                 </h3>
                 <p className="text-zinc-400 text-sm mb-8">
@@ -314,10 +335,10 @@ export function Cadastro() {
                           key={nome}
                           type="button"
                           onClick={() => toggleProduto(nome)}
-                          className={`text-sm px-4 py-2.5 rounded-xl border transition text-left ${
+                          className={`text-sm px-4 py-3 rounded-2xl border transition text-left ${
                             ativo
-                              ? 'bg-amber-500 text-zinc-950 border-amber-500 font-semibold'
-                              : 'bg-zinc-950/60 text-zinc-300 border-zinc-800 hover:border-amber-500/50'
+                              ? 'bg-zenix-rose text-white border-zenix-rose font-medium shadow-md shadow-zenix-rose/30'
+                              : 'bg-zinc-900/80 text-zinc-300 border-zinc-700 hover:border-zenix-rose/50'
                           }`}
                         >
                           {nome}
@@ -337,7 +358,7 @@ export function Cadastro() {
             {/* Botão de envio */}
             <button
               type="submit"
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-semibold px-8 py-4 rounded-full transition"
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-zenix-rose hover:bg-zenix-rose-dark text-white font-medium tracking-widest uppercase text-sm px-8 py-4 rounded-full transition shadow-lg hover:shadow-xl hover:shadow-zenix-rose/50"
             >
               <PaperAirplaneIcon className="w-5 h-5" />
               {aba === 'profissional'
@@ -347,7 +368,7 @@ export function Cadastro() {
 
             <p className="text-xs text-zinc-500 mt-4">
               Ao clicar, o WhatsApp abrirá com a mensagem já pronta. É só
-              confirmar o envio. 🔒 Nenhum dado é armazenado no site.
+              confirmar o envio. Nenhum dado é armazenado no site.
             </p>
           </form>
         </div>
