@@ -3,54 +3,56 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { links } from '../utils/whatsapp';
 
 const navegacao = [
+  { label: 'Início', href: '#home' },
   { label: 'Sobre', href: '#sobre' },
-  { label: 'Categorias', href: '#categorias' },
+  { label: 'Linhas', href: '#categorias' },
   { label: 'Produtos', href: '#produtos' },
   { label: 'Depoimentos', href: '#depoimentos' },
-  { label: 'Contato', href: '#contato' },
 ];
 
 export function Header() {
   const [menuAberto, setMenuAberto] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-linear-to-r from-zenix-rose via-zenix-mauve to-zenix-rose-dark shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
         {/* Logo */}
-        <a href="#home" className="text-xl font-bold tracking-wide">
-          <span className="bg-linear-to-r from-amber-400 to-yellow-600 bg-clip-text text-transparent">
-            ZENIX
-          </span>{' '}
-          <span className="text-white font-light">PROFESSIONAL</span>
+        <a href="#home" className="flex items-center shrink-0">
+          <img
+            src="/logo-zenix.png"
+            alt="ZENIX Professional"
+            className="h-14 md:h-16 w-auto object-contain"
+          />
         </a>
 
         {/* Navegação desktop */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-8">
           {navegacao.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-zinc-300 hover:text-amber-400 transition"
+              className="relative text-xs font-medium tracking-[0.2em] uppercase text-white/90 hover:text-white transition group"
             >
               {item.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300" />
             </a>
           ))}
         </nav>
 
-        {/* CTA WhatsApp */}
+        {/* CTA desktop */}
         <a
           href={links.parceiro}
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-semibold px-5 py-2 rounded-full transition"
+          className="hidden lg:inline-flex items-center bg-white text-zenix-rose-dark text-xs font-semibold tracking-[0.15em] uppercase px-6 py-3 rounded-full hover:bg-zenix-cream transition shadow-sm"
         >
-          Falar no WhatsApp
+          Entre em contato
         </a>
 
         {/* Botão menu mobile */}
         <button
           onClick={() => setMenuAberto(!menuAberto)}
-          className="md:hidden text-white p-2"
+          className="lg:hidden text-white p-2"
           aria-label="Menu"
         >
           {menuAberto ? (
@@ -63,25 +65,26 @@ export function Header() {
 
       {/* Menu mobile */}
       {menuAberto && (
-        <div className="md:hidden bg-zinc-950 border-t border-zinc-800 px-6 py-4">
+        <div className="lg:hidden bg-linear-to-b from-zenix-rose to-zenix-rose-dark px-6 py-6 border-t border-white/20">
           <nav className="flex flex-col gap-4">
             {navegacao.map((item) => (
               <a
-                key={item.href}
+                key={item.href} 
                 href={item.href}
                 onClick={() => setMenuAberto(false)}
-                className="text-zinc-300 hover:text-amber-400 transition"
+                className="text-sm font-medium tracking-[0.15em] uppercase text-white/90 hover:text-white transition"
               >
                 {item.label}
               </a>
             ))}
+
             <a
               href={links.parceiro}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-amber-500 hover:bg-amber-400 text-zinc-950 font-semibold px-5 py-2 rounded-full text-center transition"
+              className="mt-4 bg-white text-zenix-rose-dark text-sm font-semibold tracking-[0.15em] uppercase px-5 py-3 rounded-full text-center"
             >
-              Falar no WhatsApp
+              Entre em contato
             </a>
           </nav>
         </div>

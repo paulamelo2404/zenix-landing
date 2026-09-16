@@ -12,7 +12,7 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-zinc-950 text-white">
+    <div className="min-h-screen bg-zenix-cream text-zenix-ink">
       <Header />
       <main>
         <Hero />

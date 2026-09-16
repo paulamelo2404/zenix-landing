@@ -1,60 +1,80 @@
-import { ArrowRightIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { links } from '../utils/whatsapp';
 
 export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden"
+      className="relative min-h-screen flex items-center pt-24 pb-12 px-6 overflow-hidden bg-zenix-cream"
     >
-      {/* Fundo com gradiente */}
-      <div className="absolute inset-0 bg-linear-to-br from-zinc-950 via-zinc-900 to-zinc-950" />
+      {/* Decoração de fundo */}
+      <div className="absolute top-0 right-0 w-150 h-150 bg-zenix-blush rounded-full blur-3xl opacity-60 -translate-y-1/3 translate-x-1/4" />
+      <div className="absolute bottom-0 left-0 w-100 h-100 bg-zenix-rose/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
 
-      {/* Brilho dourado decorativo */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-150 h-150 bg-amber-500/10 rounded-full blur-3xl" />
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
 
-      <div className="relative z-10 max-w-4xl text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-zinc-800/50 border border-zinc-700 rounded-full px-4 py-1.5 mb-8 backdrop-blur">
-          <SparklesIcon className="w-4 h-4 text-amber-400" />
-          <span className="text-sm text-zinc-300">
-            Exclusivo para profissionais e revendedoras
-          </span>
-        </div>
+          {/* Coluna esquerda — texto */}
+          <div className="text-center lg:text-left">
+            <span className="inline-block text-xs font-medium tracking-[0.3em] uppercase text-zenix-rose-dark mb-5">
+              Cosméticos Profissionais
+            </span>
 
-        {/* Título */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-          Cosméticos profissionais que{' '}
-          <span className="bg-linear-to-r from-amber-400 to-yellow-600 bg-clip-text text-transparent">
-            valorizam quem faz
-          </span>{' '}
-          a beleza acontecer
-        </h1>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-zenix-ink mb-6">
+              Resultados que{' '}
+              <span className="text-zenix-rose italic">transformam</span> a
+              beleza real
+            </h1>
 
-        {/* Subtítulo */}
-        <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-10">
-          A ZENIX Professional é parceira exclusiva de salões e revendedoras
-          credenciadas. Qualidade, atendimento e resultado que só quem é
-          profissional entende.
-        </p>
+            <p className="text-base text-zenix-warm-gray leading-relaxed max-w-lg mx-auto lg:mx-0 mb-8">
+              Exclusivo para profissionais e revendedoras credenciadas.
+            </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href={links.parceiro}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-semibold px-8 py-3.5 rounded-full transition group"
-          >
-            Quero ser parceiro(a)
-            <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
-          <a
-            href="#produtos"
-            className="inline-flex items-center justify-center gap-2 border border-zinc-700 hover:border-amber-500 text-white font-semibold px-8 py-3.5 rounded-full transition"
-          >
-            Ver produtos
-          </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a
+                href="#categorias"
+                className="inline-flex items-center justify-center gap-2 bg-zenix-rose hover:bg-zenix-rose-dark text-white font-medium tracking-widest uppercase text-sm px-7 py-3.5 rounded-full transition shadow-lg hover:shadow-xl"
+              >
+                Conheça nossas linhas
+                <ArrowRightIcon className="w-4 h-4" />
+              </a>
+              <a
+                href={links.parceiro}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 border border-zenix-ink/20 hover:border-zenix-rose text-zenix-ink hover:text-zenix-rose-dark font-medium tracking-widest uppercase text-sm px-7 py-3.5 rounded-full transition"
+              >
+                Falar com a gente
+              </a>
+            </div>
+          </div>
+
+          {/* Coluna direita — imagem com logo */}
+          <div className="relative">
+            {/* Círculo decorativo atrás */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-[85%] aspect-square rounded-full bg-linear-to-br from-zenix-blush to-zenix-rose/20 blur-2xl" />
+            </div>
+
+            {/* Imagem principal — mais horizontal e com zoom no cabelo */}
+            <div className="relative aspect-16/10 rounded-4xl overflow-hidden border border-zenix-rose/20 shadow-xl">
+              <img
+                src="/cabelo1.jpg"
+                alt="Modelo com cabelo ruivo brilhante"
+                className="w-full h-full object-cover object-[70%_center] scale-110"
+              />
+
+              {/* Logo sobreposta — canto superior esquerdo */}
+              <div className="absolute top-5 left-5">
+                <img
+                  src="/logo-zenix.png"
+                  alt="ZENIX Professional"
+                  className="h-10 md:h-12 w-auto drop-shadow-md"
+                />
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
